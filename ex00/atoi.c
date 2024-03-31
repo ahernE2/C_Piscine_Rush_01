@@ -6,7 +6,7 @@
 /*   By: alejhern <alejhern@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 11:27:30 by alejhern          #+#    #+#             */
-/*   Updated: 2024/03/31 15:55:29 by alejhern         ###   ########.fr       */
+/*   Updated: 2024/03/31 17:46:39 by alejhern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ int	atoi(const char *str)
 	return (sign * result);
 }
 
-int	*conversion_argv_to_int_arr(int **argv)
+int	*conversion_argv_to_int_arr(const char *argv)
 {
 	int i;
-	int arg[];
+	int arg[16];
 
 	i = 0;
 	while(argv[i])
 	{
-		arg[i] = atoi(argv[i]);
+		arg[i] = atoi(argv);
 		i ++;
 	}
 	arg[i] = '\0';
