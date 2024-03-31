@@ -6,7 +6,7 @@
 /*   By: alejhern <alejhern@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 11:12:31 by alejhern          #+#    #+#             */
-/*   Updated: 2024/03/31 11:19:04 by alejhern         ###   ########.fr       */
+/*   Updated: 2024/03/31 16:07:54 by alejhern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 void	print_board(int board[N][N]);
 void	get_row_hints(int board[N][N], int row_hints[N][2]);
+int	*conversion_argv_to_int_arr(int **argv)
 
 void	ft_putchar(char c)
 {
@@ -89,9 +90,13 @@ void	generate_skyscrapers(int board[N][N], int row, int col)
 	}
 }
 
-int	main(void)
+int	main(int argc, char ** argv)
 {
-	int	board[N][N];	
+	int	board[N][N];
+	int *hints;
+	int i;
+
+	hints = conversion_argv_to_int_arr(argv[2][0]);
 
 	generate_skyscrapers(board, 0, 0);
 	return (0);
