@@ -6,57 +6,13 @@
 /*   By: alejhern <alejhern@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 11:15:22 by alejhern          #+#    #+#             */
-/*   Updated: 2024/03/31 16:52:09 by alejhern         ###   ########.fr       */
+/*   Updated: 2024/03/31 17:25:02 by alejhern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
 #define N 4
-
-/*void	get_row_hints(int board[N][N], int row_hints[N][2])
-{
-	int	i;
-	int	j;
-	int	visible_left;
-	int	visible_right;
-
-	i = 0;
-	j = 1;
-	visible_left = 1;
-	visible_right = 0;
-	while (i < N)
-	{
-	//	visible_left = 1;
-	//	visible_right = 0;
-		printf("0 position: %d\n", visible_left);
-		if (board[i][1] > board[i][0])
-		{
-			visible_left++;
-			printf("1nd:  %d \n", visible_left);
-			j++;
-		}
-		if ((board[i][j] > board[i][0]) && (board[i][j] > board[i][j - 1]))
-		{
-			visible_left++;
-			printf("2nd - %d  \n", visible_left);
-			j++;
-		}
-		if ((board[i][j + 1] > board[i][0]) && (board[i][j +1] > board[i][1]) && (board[i][j+1] > board[i][2]))
-		{
-			visible_left++;
-			printf("3rd - %d \n", visible_left);
-			row_hints[i][0]++;
-		}			
-		if	(board[i][N - 1 - j] > visible_right)
-		{
-			visible_right++;
-			row_hints[i][1]++;
-		}
-		i++;
-		j = 1;
-	}
-}*/
 
 void get_row_hints(int board[N][N], int row_hints[N][2]) {
     int i = 0;
@@ -128,35 +84,34 @@ void get_col_hints(int board[N][N], int col_hints[N][2]) {
     }
 }
 
-void print_hints(int hints[N][2], char dir) {
-    char buffer[20]; // Suficiente para almacenar cualquier número entero y caracteres adicionales
+void fill_hints(int board[N][N], int hints[N * 4]) {
+    int row_hints[N][2] = {0};
+    int col_hints[N][2] = {0};
+
+    get_row_hints(board, row_hints);
+    get_col_hints(board, col_hints);
+
+    int index = 0;
     int i = 0;
-    int len;
-
-    // Escribir la cadena "Pistas para "
-    write(1, "Pistas para ", 12);
-
-    // Escribir el carácter de dirección
-    write(1, &dir, 1);
-
-    // Escribir el carácter ':'
-    write(1, ": ", 2);
-
-    // Convertir e imprimir cada par de coordenadas
     while (i < N) {
-        // Convertir el primer número del par a una cadena
-        len = sprintf(buffer, "(%d, ", hints[i][0]);
-        write(1, buffer, len);
-
-        // Convertir el segundo número del par a una cadena
-        len = sprintf(buffer, "%d) ", hints[i][1]);
-        write(1, buffer, len);
-
+        hints[index++] = col_hints[i][0];
         i++;
     }
-
-    // Escribir un salto de línea al final
-    write(1, "\n", 1);
+    i = 0;
+    while (i < N) {
+        hints[index++] = col_hints[i][1];
+        i++;
+    }
+    i = 0;
+    while (i < N) {
+        hints[index++] = row_hints[i][0];
+        i++;
+    }
+    i = 0;
+    while (i < N) {
+        hints[index++] = row_hints[i][1];
+        i++;
+    }
 }
 
 int main() {
@@ -167,14 +122,16 @@ int main() {
         {1, 4, 2, 3}
     }; // Tablero de ejemplo
 
-    int row_hints[N][2] = {0};
-    int col_hints[N][2] = {0};
+    int hints[N * 4] = {0};
+    fill_hints(board, hints);
 
-    get_row_hints(board, row_hints);
-    get_col_hints(board, col_hints);
-
-    print_hints(row_hints, 'F');
-    print_hints(col_hints, 'C');
+    printf("Pistas:\n");
+    int i = 0;
+    while (i < N * 4) {
+        printf("%d ", hints[i]);
+        i++;
+    }
+    printf("\n");
 
     return 0;
 }
