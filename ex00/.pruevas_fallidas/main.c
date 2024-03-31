@@ -6,7 +6,7 @@
 /*   By: alejhern <alejhern@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 01:56:00 by alejhern          #+#    #+#             */
-/*   Updated: 2024/03/31 11:42:38 by alejhern         ###   ########.fr       */
+/*   Updated: 2024/03/31 12:39:00 by alejhern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	**fill_top_to_bottom(int **board, int top, int bottom, int col);
 int	**fill_bottom_to_top(int **board, int top, int bottom, int col);
 int	**fill_left_to_right(int **board, int left, int right, int row);
 int	**fill_right_to_left(int **board, int left, int right, int row);
-//int solve_skyscrapers(int** board, int row, int col, int* left, int* right, int* top, int* bottom);
+int solve_skyscrapers(int** board, int* left, int* right, int* top, int* bottom);
 
 void	ft_putchar(char c)
 {
@@ -105,7 +105,7 @@ int main() {
 		}
 		row++;
 	}
-	/*if(solve_skyscrapers(board, 0, 0, left, right, top, bottom))
+	if(solve_skyscrapers(board, left, right, top, bottom))
 	{
 		write(1, "Tablero después de completar", 32);
 		ft_putchar('\n');
@@ -113,7 +113,6 @@ int main() {
 	}
 	else
 		write(1, "Error\n", 6);
-    */
 	return 0;
 }
 
