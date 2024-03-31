@@ -6,49 +6,35 @@
 /*   By: alejhern <alejhern@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 11:27:30 by alejhern          #+#    #+#             */
-/*   Updated: 2024/03/31 17:46:39 by alejhern         ###   ########.fr       */
+/*   Updated: 2024/03/31 17:58:03 by alejhern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	atoi(const char *str)
-{
-	int result;
-	int sign;
-	int i;
+#include <stdlib.h>
 
-	result = 0;
-	sign = 1;
-	i = 0;
-	while (str[i] == ' ')
-	{
-		i++;
-	}
-	if (str[i] == '-')
-	{
-		sign = -1;
-		i++;
-	}
-	else if (str[i] == '+')
+int *ft_atoi(const char *str) {
+    // Calcula la longitud de la cadena
+    int len = 0;
+    const char *p = str;
+    while (*p != '\0') {
+        len++;
+        p++;
+    }
+
+    // Reserva memoria para el nuevo array de enteros
+    int *result = (int *)malloc(len * sizeof(int));
+    if (result == NULL) {
+        // Manejo del error si la asignación de memoria falla
+        return NULL;
+    }
+
+    // Convierte cada carácter de la cadena original a un entero y almacénalo en el nuevo array
+    int i = 0;
+    while (*str != '\0') {
+        result[i] = *str - '0';  // Convierte el carácter a su valor entero
         i++;
-    while (str[i] >= '0' && str[i] <= '9')
-	{
-		result = result * 10 + (str[i] - '0');
-		i++;
-	}
-	return (sign * result);
-}
+        str++;
+    }
 
-int	*conversion_argv_to_int_arr(const char *argv)
-{
-	int i;
-	int arg[16];
-
-	i = 0;
-	while(argv[i])
-	{
-		arg[i] = atoi(argv);
-		i ++;
-	}
-	arg[i] = '\0';
-	return (arg);
+    return result;
 }

@@ -6,7 +6,7 @@
 /*   By: alejhern <alejhern@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 11:15:22 by alejhern          #+#    #+#             */
-/*   Updated: 2024/03/31 17:25:02 by alejhern         ###   ########.fr       */
+/*   Updated: 2024/03/31 18:05:42 by alejhern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h>
 #define N 4
 
-void get_row_hints(int board[N][N], int row_hints[N][2]) {
+void get_row_hints(int **board, int row_hints[N][2]) {
     int i = 0;
     while (i < N) {
         int visible_left = 0;
@@ -48,7 +48,7 @@ void get_row_hints(int board[N][N], int row_hints[N][2]) {
     }
 }
 
-void get_col_hints(int board[N][N], int col_hints[N][2]) {
+void get_col_hints(int **board, int col_hints[N][2]) {
     int j = 0;
     while (j < N) {
         int visible_up = 0;
@@ -84,7 +84,7 @@ void get_col_hints(int board[N][N], int col_hints[N][2]) {
     }
 }
 
-void fill_hints(int board[N][N], int hints[N * 4]) {
+void fill_hints(int **board, int *hints) {
     int row_hints[N][2] = {0};
     int col_hints[N][2] = {0};
 
@@ -113,7 +113,7 @@ void fill_hints(int board[N][N], int hints[N * 4]) {
         i++;
     }
 }
-
+/*
 int main() {
     int board[N][N] = {
         {4, 2, 3, 1},
@@ -135,3 +135,4 @@ int main() {
 
     return 0;
 }
+*/
